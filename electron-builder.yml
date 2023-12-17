@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: com.example.harshalyadav
+productName: AutoUpdater app
+copyright: Copyright © 2023 harshalyadav
 directories:
   output: dist
   buildResources: resources
@@ -9,4 +9,10 @@ files:
     filter:
       - package.json
       - app
-publish: null
+publish:
+  - provider: github
+    releaseType: release
+    repo: Harshalyadav/nextron-autoupdater
+    host: github.com
+    private: true
+

@@ -2,8 +2,14 @@ import path from 'path'
 import { app, ipcMain } from 'electron'
 import serve from 'electron-serve'
 import { createWindow } from './helpers'
+const { autoUpdater, AppUpdater } = require("electron-updater");
 
 const isProd = process.env.NODE_ENV === 'production'
+let mainWindow;
+
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
+
 
 if (isProd) {
   serve({ directory: 'app' })
@@ -14,7 +20,7 @@ if (isProd) {
 ;(async () => {
   await app.whenReady()
 
-  const mainWindow = createWindow('main', {
+  mainWindow = createWindow('main', {
     width: 1000,
     height: 600,
     webPreferences: {
@@ -29,7 +35,41 @@ if (isProd) {
     await mainWindow.loadURL(`http://localhost:${port}/home`)
     mainWindow.webContents.openDevTools()
   }
+
+  autoUpdater.checkForUpdates();
+  mainWindow.showMessage(`Checking for updates. Current version ${app.getVersion()}`);
+
+  
 })()
+
+
+//........................knkjkjkgddg.....................
+
+
+
+// ... rest of your code
+
+
+
+autoUpdater.on("update-available", (info) => {
+  mainWindow.showMessage(`Update available. Current version ${app.getVersion()}`);
+  let pth = autoUpdater.downloadUpdate();
+  mainWindow.showMessage(pth);
+});
+
+autoUpdater.on("update-not-available", (info) => {
+  mainWindow.showMessage(`No update available. Current version ${app.getVersion()}`);
+});
+
+/*Download Completion Message*/
+autoUpdater.on("update-downloaded", (info) => {
+  mainWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
+});
+
+autoUpdater.on("error", (info) => {
+  mainWindow.showMessage(info);
+});
+
 
 app.on('window-all-closed', () => {
   app.quit()
