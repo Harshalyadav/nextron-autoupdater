@@ -3,7 +3,7 @@
   "name": "my-nextron-app",
   "description": "My application description",
   "version": "1.0.2",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "author": "harshal yadav <harshalyadav@gmail.com>",
   "main": "app/background.js",
   "repository": "https://github.com/Harshalyadav/nextron-autoupdater",
   "scripts": {
